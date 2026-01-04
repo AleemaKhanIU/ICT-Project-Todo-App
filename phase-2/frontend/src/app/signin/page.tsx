@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { Lock, ArrowRight } from 'lucide-react';
 import { authClient } from '@/lib/auth';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -116,25 +116,25 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-zinc-950 dark:via-blue-950 dark:to-zinc-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-100 dark:from-zinc-950 dark:via-purple-950 dark:to-zinc-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-300 to-purple-400 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
               <img 
                 src="/image.png" 
-                alt="TaskVault" 
+                alt="KitabKosh" 
                 className="relative w-12 h-12 object-contain bg-transparent transform group-hover:scale-110 transition-transform" 
               />
             </div>
-            <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              TaskVault
+            <span className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-purple-500 bg-clip-text text-transparent font-playfair underline-gradient">
+              KitabKosh
             </span>
           </Link>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            Modern Task Management
+            Your Reading Companion
           </p>
         </div>
 
@@ -151,7 +151,7 @@ export default function SignInPage() {
               className={cn(
                 'flex-1 py-2.5 text-sm font-semibold rounded-md transition-all duration-200',
                 mode === 'signin'
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md'
+                  ? 'bg-gradient-to-r from-purple-400 to-purple-500 text-white shadow-md'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               )}
             >
@@ -166,7 +166,7 @@ export default function SignInPage() {
               className={cn(
                 'flex-1 py-2.5 text-sm font-semibold rounded-md transition-all duration-200',
                 mode === 'signup'
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md'
+                  ? 'bg-gradient-to-r from-purple-400 to-purple-500 text-white shadow-md'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               )}
             >
@@ -181,8 +181,8 @@ export default function SignInPage() {
             </h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
               {mode === 'signin'
-                ? 'Sign in to access your tasks'
-                : 'Get started with TaskVault today'}
+                ? 'Sign in to access your reading library'
+                : 'Get started with KitabKosh today'}
             </p>
           </div>
 
@@ -241,7 +241,7 @@ export default function SignInPage() {
                 Don't have an account?{' '}
                 <button
                   onClick={() => setMode('signup')}
-                  className="text-blue-600 dark:text-blue-500 font-medium hover:underline"
+                  className="text-purple-400 dark:text-purple-300 font-medium hover:underline"
                 >
                   Sign up
                 </button>
@@ -251,7 +251,7 @@ export default function SignInPage() {
                 Already have an account?{' '}
                 <button
                   onClick={() => setMode('signin')}
-                  className="text-blue-600 dark:text-blue-500 font-medium hover:underline"
+                  className="text-purple-400 dark:text-purple-300 font-medium hover:underline"
                 >
                   Sign in
                 </button>

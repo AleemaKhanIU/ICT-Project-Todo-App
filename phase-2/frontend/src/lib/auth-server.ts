@@ -1,11 +1,18 @@
 import { betterAuth } from 'better-auth';
 import { jwt } from 'better-auth/plugins';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { prisma } from './prisma';
+import { prisma, normalizeEmail } from './prisma';
 import { sendEmail } from './email';
 
-// Email normalization helper - fixes login issues with case-sensitive emails
-const normalizeEmail = (email: string): string => email.trim().toLowerCase();
+// Helper to ensure URL has protocol
+const ensureProtocol = (url: string): string => {
+  if (!url) return 'http://localhost:3000';
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  // Add https:// if no protocol
+  return `https://${url}`;
+};
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -16,7 +23,7 @@ export const auth = betterAuth({
     requireEmailVerification: false, // Set to true if you want to require verification
     // Enable verification email sending (even if not required)
     // Better Auth will enable the endpoint if this function is defined
-    sendVerificationEmail: async ({ user, url }) => {
+    sendVerificationEmail: async ({ user, url }: { user: { email: string }; url: string }) => {
       try {
         await sendEmail({
           to: user.email,
@@ -40,7 +47,7 @@ export const auth = betterAuth({
     },
     // Enable password reset email sending
     // Better Auth will enable the endpoint if this function is defined
-    sendResetPassword: async ({ user, url }) => {
+    sendResetPassword: async ({ user, url }: { user: { email: string }; url: string }) => {
       try {
         await sendEmail({
           to: user.email,
@@ -62,49 +69,13 @@ export const auth = betterAuth({
         // Don't throw - Better Auth will handle the error
       }
     },
-  },
+  } as any,
   plugins: [
-    jwt({
-      secret: process.env.BETTER_AUTH_SECRET || '',
-    }),
+    jwt(),
   ],
-  baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+  baseURL: ensureProtocol(process.env.BETTER_AUTH_URL || 'http://localhost:3000'),
   basePath: '/api/auth',
   secret: process.env.BETTER_AUTH_SECRET || '',
-  hooks: {
-    user: {
-      created: async ({ user }) => {
-        const normalizedEmail = normalizeEmail(user.email);
-        if (user.email !== normalizedEmail) {
-          await prisma.user.update({ where: { id: user.id }, data: { email: normalizedEmail } });
-          const account = await prisma.account.findFirst({
-            where: { userId: user.id, providerId: 'credential' },
-          });
-          if (account && account.accountId !== normalizedEmail) {
-            await prisma.account.update({ where: { id: account.id }, data: { accountId: normalizedEmail } });
-          }
-        }
-      },
-      updated: async ({ user }) => {
-        if (user.email) {
-          const normalizedEmail = normalizeEmail(user.email);
-          if (user.email !== normalizedEmail) {
-            await prisma.user.update({ where: { id: user.id }, data: { email: normalizedEmail } });
-          }
-        }
-      },
-    },
-    account: {
-      created: async ({ account }) => {
-        if (account.providerId === 'credential' && account.accountId) {
-          const normalized = normalizeEmail(account.accountId);
-          if (account.accountId !== normalized) {
-            await prisma.account.update({ where: { id: account.id }, data: { accountId: normalized } });
-          }
-        }
-      },
-    },
-  },
 });
 
 // One-time function to fix existing emails (run once: await normalizeAllEmails())

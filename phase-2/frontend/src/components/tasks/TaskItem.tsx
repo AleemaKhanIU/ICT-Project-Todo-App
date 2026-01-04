@@ -56,7 +56,7 @@ export function TaskItem({ task }: TaskItemProps) {
                 : 'border-slate-300 dark:border-zinc-700 hover:border-green-600 dark:hover:border-green-500 hover:scale-110',
               isToggling && 'animate-pulse'
             )}
-            aria-label={task.completed ? 'Mark as incomplete' : 'Mark as complete'}
+            aria-label={task.completed ? 'Mark as reading' : 'Mark as completed'}
           >
             {task.completed ? (
               <div className="animate-in zoom-in duration-300">
@@ -101,7 +101,7 @@ export function TaskItem({ task }: TaskItemProps) {
                     ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
                     : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-slate-300'
                 )}>
-                  Due: {new Date(task.due_date).toLocaleDateString()}
+                  Target: {new Date(task.due_date).toLocaleDateString()}
                 </span>
               )}
               {task.priority && (
@@ -134,7 +134,7 @@ export function TaskItem({ task }: TaskItemProps) {
                 ) : (
                   <>
                     <Circle className="w-3 h-3 inline mr-1" />
-                    Active
+                    Reading
                   </>
                 )}
               </span>
@@ -146,14 +146,14 @@ export function TaskItem({ task }: TaskItemProps) {
             <button
               onClick={() => setShowEditModal(true)}
               className="p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg transition-all duration-200 hover:scale-110"
-              aria-label="Edit task"
+              aria-label="Edit book"
             >
               <Edit2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             </button>
             <button
               onClick={() => setShowDeleteConfirm(true)}
               className="p-2 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all duration-200 hover:scale-110"
-              aria-label="Delete task"
+              aria-label="Delete book"
             >
               <Trash2 className="w-4 h-4 text-red-600 dark:text-red-500" />
             </button>
@@ -165,10 +165,10 @@ export function TaskItem({ task }: TaskItemProps) {
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
             <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-sm w-full shadow-2xl border border-slate-200 dark:border-zinc-800 animate-in zoom-in-95 duration-200">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                Delete Task?
+                Delete Book?
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
-                This action cannot be undone. The task will be permanently deleted.
+                This action cannot be undone. The book will be permanently removed from your list.
               </p>
               <div className="flex gap-3">
                 <button

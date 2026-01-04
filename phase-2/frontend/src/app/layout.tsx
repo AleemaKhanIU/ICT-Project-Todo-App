@@ -1,14 +1,31 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display, Poppins } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Toaster } from 'sonner';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({ 
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'TaskVault - Modern Task Management',
-  description: 'Secure, fast, and beautiful task management application with real-time sync',
+  title: 'KitabKosh - Your Reading Companion',
+  description: 'Track your reading journey, manage your book collection, and discover your next great read',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
   icons: {
     icon: '/image.png',
@@ -41,7 +58,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable} ${poppins.variable} font-sans`} suppressHydrationWarning>
         <AuthProvider>
           {children}
           <Toaster position="top-right" richColors />

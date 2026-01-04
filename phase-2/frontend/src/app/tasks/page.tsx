@@ -14,7 +14,7 @@ import { CreateTaskModal } from '@/components/tasks/CreateTaskModal';
 import { cn } from '@/lib/utils';
 
 function TasksContent() {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -64,10 +64,10 @@ function TasksContent() {
             </button>
             <div>
               <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                All Tasks
+                All Books
               </h1>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Manage and organize your tasks
+                Manage and organize your books
               </p>
             </div>
           </div>
@@ -100,7 +100,7 @@ function TasksContent() {
             </div>
             <Button onClick={() => setShowCreateModal(true)} size="sm">
               <Plus className="w-4 h-4 mr-1.5" />
-              New Task
+              New Book
             </Button>
           </div>
         </div>

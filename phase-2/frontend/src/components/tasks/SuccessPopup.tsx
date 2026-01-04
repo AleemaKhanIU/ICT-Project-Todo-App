@@ -31,10 +31,10 @@ export function SuccessPopup({ isOpen, onClose, taskTitle }: SuccessPopupProps) 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <Sparkles className="w-4 h-4 text-white animate-pulse" />
-              <h3 className="text-white font-bold text-lg">Task Created! 🎉</h3>
+              <h3 className="text-white font-bold text-lg">Book Added! 🎉</h3>
             </div>
             <p className="text-white/90 text-sm truncate font-medium">{taskTitle}</p>
-            <p className="text-white/80 text-xs mt-1">Your task has been added successfully</p>
+            <p className="text-white/80 text-xs mt-1">Your book has been added to your reading list</p>
           </div>
           <button
             onClick={onClose}

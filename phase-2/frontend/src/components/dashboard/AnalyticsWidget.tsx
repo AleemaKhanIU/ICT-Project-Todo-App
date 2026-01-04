@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { TrendingUp, TrendingDown, Clock, Target, Zap } from 'lucide-react';
+import { TrendingUp, Clock, Target, Zap } from 'lucide-react';
 import type { Task } from '@/types/task';
 
 interface AnalyticsWidgetProps {
@@ -12,7 +12,6 @@ export function AnalyticsWidget({ tasks }: AnalyticsWidgetProps) {
   const analytics = useMemo(() => {
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed).length;
-    const pending = total - completed;
     
     // Calculate average completion time (for completed tasks)
     const completedTasks = tasks.filter(t => t.completed && t.created_at && t.updated_at);

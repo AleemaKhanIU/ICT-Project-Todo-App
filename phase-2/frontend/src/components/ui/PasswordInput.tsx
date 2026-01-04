@@ -19,8 +19,8 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
     const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
     // Calculate password strength
-    const getPasswordStrength = (pwd: string) => {
-      if (!pwd) return { strength: 0, label: '', color: '', checks: [] };
+    const getPasswordStrength = (pwd: string): { strength: number; label: string; color: string; checks: { length: boolean; uppercase: boolean; lowercase: boolean; number: boolean; special: boolean } } | null => {
+      if (!pwd) return null;
       
       const checks = {
         length: pwd.length >= 8,
@@ -49,7 +49,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
         color = 'bg-green-500';
       }
       
-      return { strength, label, color, checks };
+      return { strength, label, color, checks: checks as { length: boolean; uppercase: boolean; lowercase: boolean; number: boolean; special: boolean } };
     };
 
     const passwordStrength = showStrength ? getPasswordStrength(value) : null;

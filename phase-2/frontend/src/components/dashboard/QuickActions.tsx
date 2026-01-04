@@ -1,7 +1,6 @@
 'use client';
 
-import { Plus, Calendar, Filter, Download, Upload } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { Plus, Calendar, Download, Upload } from 'lucide-react';
 
 interface QuickActionsProps {
   onCreateTask?: () => void;
@@ -18,7 +17,7 @@ export function QuickActions({
 }: QuickActionsProps) {
   const actions = [
     {
-      label: 'New Task',
+      label: 'New Book',
       icon: Plus,
       onClick: onCreateTask,
       color: 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white',
