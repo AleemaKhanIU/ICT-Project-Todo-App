@@ -51,13 +51,13 @@ function CalendarContent() {
     });
   };
 
-  // Get task count for a date
-  const getTaskCountForDate = (date: Date): { total: number; completed: number; pending: number } => {
+  // Get book count for a date
+  const getTaskCountForDate = (date: Date): { total: number; completed: number; reading: number } => {
     const tasks = getTasksForDate(date);
     return {
       total: tasks.length,
       completed: tasks.filter(t => t.completed).length,
-      pending: tasks.filter(t => !t.completed).length,
+      reading: tasks.filter(t => !t.completed).length,
     };
   };
 
@@ -141,13 +141,13 @@ function CalendarContent() {
                 Calendar
               </h1>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                View your tasks on a calendar
+                View your books on a calendar
               </p>
             </div>
           </div>
           <Button onClick={() => setShowCreateModal(true)} size="sm">
             <Plus className="w-4 h-4 mr-1.5" />
-            New Task
+            New Book
           </Button>
         </div>
 
@@ -235,8 +235,8 @@ function CalendarContent() {
                       {hasTasks && (
                         <div className="flex-1 flex flex-col items-center justify-center gap-1">
                           <div className="flex gap-1 items-center">
-                            {taskCount.pending > 0 && (
-                              <div className="w-2 h-2 rounded-full bg-blue-500" title={`${taskCount.pending} pending`} />
+                            {taskCount.reading > 0 && (
+                              <div className="w-2 h-2 rounded-full bg-blue-500" title={`${taskCount.reading} reading`} />
                             )}
                             {taskCount.completed > 0 && (
                               <div className="w-2 h-2 rounded-full bg-green-500" title={`${taskCount.completed} completed`} />
@@ -261,7 +261,7 @@ function CalendarContent() {
             <div className="bg-white dark:bg-zinc-900 rounded-lg border border-slate-200 dark:border-zinc-800 p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                  Tasks for {selectedDate.toLocaleDateString('en-US', {
+                  Books for {selectedDate.toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
@@ -279,7 +279,7 @@ function CalendarContent() {
                 <div className="text-center py-8">
                   <CalendarIcon className="w-12 h-12 mx-auto text-slate-400 dark:text-slate-500 mb-3" />
                   <p className="text-slate-600 dark:text-slate-400">
-                    No tasks for this date
+                    No books for this date
                   </p>
                   <Button
                     onClick={() => setShowCreateModal(true)}
@@ -288,7 +288,7 @@ function CalendarContent() {
                     className="mt-4"
                   >
                     <Plus className="w-4 h-4 mr-1.5" />
-                    Create Task
+                    Add Book
                   </Button>
                 </div>
               ) : (
@@ -337,7 +337,7 @@ function CalendarContent() {
         </div>
       </main>
 
-      {/* Create Task Modal */}
+      {/* Create Book Modal */}
       {showCreateModal && (
         <CreateTaskModal onClose={() => setShowCreateModal(false)} />
       )}

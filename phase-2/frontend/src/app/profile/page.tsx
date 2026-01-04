@@ -2,14 +2,16 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Menu, User, Mail, Camera, Save, Upload, X, CheckCircle2 } from 'lucide-react';
+import { Menu, User, Mail, Camera, Save, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { authClient } from '@/lib/auth';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
+
+// Explicitly reference User to satisfy TypeScript's noUnusedLocals check
+const UserIcon = User;
 
 export default function ProfilePage() {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -191,7 +193,7 @@ export default function ProfilePage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <User className="w-16 h-16 text-white" />
+                    <UserIcon className="w-16 h-16 text-white" />
                   )}
                 </div>
                 <button
@@ -233,7 +235,7 @@ export default function ProfilePage() {
             <form onSubmit={handleUpdateProfile} className="space-y-6">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-                  <User className="w-6 h-6" />
+                  <UserIcon className="w-6 h-6" />
                   Profile Information
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400">
@@ -247,7 +249,7 @@ export default function ProfilePage() {
                 onChange={(e) => setName(e.target.value)}
                 error={errors.name}
                 placeholder="Enter your full name"
-                icon={User}
+                icon={UserIcon}
                 required
               />
 

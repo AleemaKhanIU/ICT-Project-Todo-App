@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Menu, Save, User, Mail, Moon, Sun, Shield, Trash2, Download, ChevronRight, ChevronLeft, Check, Lock, Key, Eye, EyeOff, Globe, Info, HelpCircle } from 'lucide-react';
+import { Menu, Save, Mail, Sun, Shield, Trash2, Download, ChevronRight, ChevronLeft, Check, Lock, Key, Eye, EyeOff, Info, HelpCircle } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Button } from '@/components/ui/Button';
@@ -11,7 +11,7 @@ import { authClient } from '@/lib/auth';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
-type Step = 'security' | 'appearance' | 'privacy' | 'about';
+type Step = 'security' | 'appearance' | 'privacy' | 'about' | 'data';
 
 const steps: { id: Step; label: string; icon: typeof Shield }[] = [
   { id: 'security', label: 'Security', icon: Shield },
@@ -621,9 +621,9 @@ export default function SettingsPage() {
 
                 <div className="space-y-5">
                   <div className="p-5 border border-slate-200 dark:border-zinc-800 rounded-lg bg-slate-50 dark:bg-zinc-800/50">
-                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">TaskVault</h3>
+                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2 font-playfair underline-purple">KitabKosh</h3>
                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                      A modern task management application built with Next.js and FastAPI.
+                      A modern reading companion and book tracking application built with Next.js and FastAPI.
                     </p>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">

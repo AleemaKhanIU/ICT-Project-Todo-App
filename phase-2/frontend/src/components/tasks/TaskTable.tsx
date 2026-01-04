@@ -99,7 +99,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
   // Bulk actions
   const handleBulkComplete = async () => {
     if (selectedTasks.size === 0) {
-      toast.info('Please select tasks to complete');
+      toast.info('Please select books to complete');
       return;
     }
     for (const taskId of selectedTasks) {
@@ -109,20 +109,20 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
       }
     }
     setSelectedTasks(new Set());
-    toast.success(`Marked ${selectedTasks.size} task(s) as completed`);
+    toast.success(`Marked ${selectedTasks.size} book(s) as completed`);
   };
 
   const handleBulkDelete = async () => {
     if (selectedTasks.size === 0) {
-      toast.info('Please select tasks to delete');
+      toast.info('Please select books to delete');
       return;
     }
-    if (confirm(`Are you sure you want to delete ${selectedTasks.size} task(s)?`)) {
+    if (confirm(`Are you sure you want to delete ${selectedTasks.size} book(s)?`)) {
       for (const taskId of selectedTasks) {
         await deleteTask(taskId);
       }
       setSelectedTasks(new Set());
-      toast.success(`Deleted ${selectedTasks.size} task(s)`);
+      toast.success(`Deleted ${selectedTasks.size} book(s)`);
     }
   };
 
@@ -130,7 +130,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
   const handleEdit = (task: Task) => {
     // Don't allow editing temp tasks (still being created)
     if (task.id.startsWith('temp-')) {
-      toast.warning('Task is still being created. Please wait a moment.');
+      toast.warning('Book is still being added. Please wait a moment.');
       return;
     }
     setEditingTask(task);
@@ -201,7 +201,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
             let successCount = 0;
             let errorCount = 0;
 
-            toast.info(`Importing ${validTasks.length} task(s)...`);
+            toast.info(`Importing ${validTasks.length} book(s)...`);
 
             for (let i = 0; i < validTasks.length; i++) {
               const task = validTasks[i];
@@ -230,12 +230,12 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
             }
 
             if (successCount > 0) {
-              toast.success(`Successfully imported ${successCount} task(s)${errorCount > 0 ? ` (${errorCount} failed)` : ''}`);
+              toast.success(`Successfully imported ${successCount} book(s)${errorCount > 0 ? ` (${errorCount} failed)` : ''}`);
             } else {
-              toast.error(`Failed to import tasks. ${errorCount} error(s) occurred.`);
+              toast.error(`Failed to import books. ${errorCount} error(s) occurred.`);
             }
           } else {
-            toast.error('Invalid file format. Expected an array of tasks.');
+            toast.error('Invalid file format. Expected an array of books.');
           }
         } catch (error) {
           toast.error('Failed to parse JSON file');
@@ -359,7 +359,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
                     Status
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                    Task
+                    Book
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                     Due Date
@@ -385,7 +385,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
                       <div className="flex flex-col items-center">
                         <Circle className="w-12 h-12 text-slate-300 dark:text-zinc-700 mb-3" />
                         <p className="text-slate-600 dark:text-slate-400">
-                          No {filter === 'all' ? '' : filter} tasks found
+                          No {filter === 'all' ? '' : filter === 'active' ? 'reading' : filter} books found
                         </p>
                       </div>
                     </td>
@@ -429,7 +429,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
                               ) : (
                                 <>
                                   <Circle className="w-3 h-3" />
-                                  Active
+                                  Reading
                                 </>
                               )}
                             </button>
@@ -497,21 +497,21 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
                             <button
                               onClick={() => handleView(task)}
                               className="p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg transition"
-                              title="View task"
+                              title="View book"
                             >
                               <Eye className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                             </button>
                             <button
                               onClick={() => handleEdit(task)}
                               className="p-2 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg transition"
-                              title="Edit task"
+                              title="Edit book"
                             >
                               <Edit2 className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                             </button>
                             <button
                               onClick={() => handleDelete(task.id)}
                               className="p-2 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition"
-                              title="Delete task"
+                              title="Delete book"
                             >
                               <Trash2 className="w-4 h-4 text-red-600 dark:text-red-500" />
                             </button>
@@ -529,7 +529,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
           {filteredTasks.length > tasksPerPage && (
             <div className="px-4 py-3 bg-slate-50 dark:bg-zinc-800 border-t border-slate-200 dark:border-zinc-700 flex items-center justify-between">
               <div className="text-sm text-slate-600 dark:text-slate-400">
-                Showing {startIndex + 1} to {Math.min(endIndex, filteredTasks.length)} of {filteredTasks.length} task(s)
+                Showing {startIndex + 1} to {Math.min(endIndex, filteredTasks.length)} of {filteredTasks.length} book(s)
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -588,7 +588,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Task Details
+                Book Details
               </h2>
               <button
                 onClick={() => setViewingTask(null)}
@@ -703,7 +703,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
                   }}
                   className="flex-1"
                 >
-                  {viewingTask.completed ? 'Mark as Active' : 'Mark as Completed'}
+                  {viewingTask.completed ? 'Mark as Reading' : 'Mark as Completed'}
                 </Button>
                 <Button
                   variant="secondary"
@@ -713,7 +713,7 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
                   }}
                   className="flex-1"
                 >
-                  Edit Task
+                  Edit Book
                 </Button>
               </div>
             </div>
@@ -726,10 +726,10 @@ export function TaskTable({ tasks: propTasks }: TaskTableProps) {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
           <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-sm w-full shadow-2xl border border-slate-200 dark:border-zinc-800 animate-in zoom-in-95 duration-200">
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-              Delete Task?
+              Delete Book?
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
-              This action cannot be undone. The task will be permanently deleted.
+              This action cannot be undone. The book will be permanently removed from your list.
             </p>
             <div className="flex gap-3">
               <Button

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { TrendingUp, Clock, Target, Calendar, Award, Zap, Activity, BarChart3 } from 'lucide-react';
+import { TrendingUp, Clock, Calendar, Award, Zap, Activity, BarChart3 } from 'lucide-react';
 import type { Task } from '@/types/task';
 
 interface AnalyticsProps {

@@ -157,7 +157,7 @@ export function LineChart({ tasks }: LineChartProps) {
     <div className="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 p-6 shadow-sm">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-          Task Trends
+          Book Trends
         </h3>
         <div className="relative">
           <button

@@ -6,7 +6,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { TaskItem } from './TaskItem';
 import { Loader2, CheckCircle2, Filter, ChevronLeft, ChevronRight, Search, X } from 'lucide-react';
 import type { Task } from '@/types/task';
-import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
 type TaskFilter = 'all' | 'active' | 'completed';
@@ -33,9 +32,6 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
   }, [user?.id]); // Only depend on user.id to avoid infinite loops
 
   // Get task status
-  const getTaskStatus = (task: Task): 'active' | 'completed' => {
-    return task.completed ? 'completed' : 'active';
-  };
 
   // Filter tasks
   const filteredTasks = useMemo(() => {
@@ -89,7 +85,7 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <Loader2 className="w-8 h-8 text-blue-600 animate-spin mb-4" />
-        <p className="text-slate-600 dark:text-slate-400">Loading your tasks...</p>
+        <p className="text-slate-600 dark:text-slate-400">Loading your books...</p>
       </div>
     );
   }
@@ -113,7 +109,7 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Search tasks..."
+              placeholder="Search books..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -147,7 +143,7 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
                     : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-zinc-700'
                 )}
               >
-                {f} ({f === 'all' ? stats.total : f === 'active' ? stats.active : stats.completed})
+                {f === 'active' ? 'Reading' : f} ({f === 'all' ? stats.total : f === 'active' ? stats.active : stats.completed})
               </button>
             ))}
           </div>
@@ -158,12 +154,12 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
             <CheckCircle2 className="w-8 h-8 text-slate-400 dark:text-zinc-600" />
           </div>
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-            No {filter === 'all' ? '' : filter} tasks found
+            No {filter === 'all' ? '' : filter === 'active' ? 'reading' : filter} books found
           </h3>
           <p className="text-slate-600 dark:text-slate-400 max-w-sm">
             {filter === 'all' 
-              ? 'Create your first task to get started. Stay organized and boost your productivity!'
-              : `No ${filter} tasks at the moment.`}
+              ? 'Add your first book to get started. Track your reading journey and discover great books!'
+              : `No ${filter === 'active' ? 'reading' : filter} books at the moment.`}
           </p>
         </div>
       </div>
@@ -187,7 +183,7 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
                 : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-zinc-700'
             )}
           >
-            {f} ({f === 'all' ? stats.total : f === 'active' ? stats.active : f === 'completed' ? stats.completed : stats.inactive})
+            {f === 'active' ? 'Reading' : f} ({f === 'all' ? stats.total : f === 'active' ? stats.active : stats.completed})
           </button>
         ))}
       </div>
@@ -203,7 +199,7 @@ export function TaskList({ tasks: propTasks }: TaskListProps = {}) {
       {filteredTasks.length > tasksPerPage && (
         <div className="flex items-center justify-between p-4 bg-white dark:bg-zinc-900 rounded-lg border border-slate-200 dark:border-zinc-800">
           <div className="text-sm text-slate-600 dark:text-slate-400">
-            Showing {startIndex + 1} to {Math.min(endIndex, filteredTasks.length)} of {filteredTasks.length} task(s)
+            Showing {startIndex + 1} to {Math.min(endIndex, filteredTasks.length)} of {filteredTasks.length} book(s)
           </div>
           <div className="flex items-center gap-2">
             <button

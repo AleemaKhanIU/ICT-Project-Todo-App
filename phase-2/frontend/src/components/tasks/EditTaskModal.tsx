@@ -40,7 +40,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
     setErrors({});
 
     if (isTempTask) {
-      setErrors({ title: 'Task is still being created. Please wait a moment.' });
+      setErrors({ title: 'Book is still being added. Please wait a moment.' });
       return;
     }
 
@@ -101,10 +101,10 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Edit Task
+                Edit Book
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Update your task details
+                Update your book details
               </p>
             </div>
           </div>
@@ -120,11 +120,11 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <Input
-              label="Task Title"
+              label="Book Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               error={errors.title}
-              placeholder="What needs to be done?"
+              placeholder="Enter book title"
               required
               autoFocus
               className="text-lg"
@@ -133,12 +133,12 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
 
           <div>
             <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-              Description <span className="text-slate-400">(optional)</span>
+              Notes/Description <span className="text-slate-400">(optional)</span>
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add more details, notes, or context..."
+              placeholder="Add notes about the book, author, or reading progress..."
               rows={3}
               className="flex w-full rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:border-transparent transition resize-none"
             />
@@ -147,7 +147,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-                Start Date <span className="text-slate-400">(optional)</span>
+                Start Reading Date <span className="text-slate-400">(optional)</span>
               </label>
               <input
                 type="date"
@@ -159,7 +159,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
 
             <div>
               <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-                End Date <span className="text-slate-400">(optional)</span>
+                Target Completion Date <span className="text-slate-400">(optional)</span>
               </label>
               <input
                 type="date"
@@ -190,13 +190,13 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-3">
               <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-                Category <span className="text-slate-400">(optional)</span>
+                Genre/Category <span className="text-slate-400">(optional)</span>
               </label>
               <input
                 type="text"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="e.g., Work, Personal, Shopping"
+                placeholder="e.g., Fiction, Romance, Urdu Novel, English Classic"
                 className="flex w-full rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:border-transparent transition"
               />
             </div>
@@ -218,7 +218,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
               className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Save className="w-4 h-4 mr-2" />
-              {isTempTask ? 'Task Creating...' : 'Save Changes'}
+              {isTempTask ? 'Book Adding...' : 'Save Changes'}
             </Button>
           </div>
         </form>

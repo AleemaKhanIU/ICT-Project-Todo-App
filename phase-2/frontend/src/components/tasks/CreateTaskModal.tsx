@@ -12,10 +12,10 @@ interface CreateTaskModalProps {
 }
 
 const quickTemplates = [
-  { icon: Zap, label: 'Quick Task', emoji: '⚡', color: 'bg-yellow-500' },
-  { icon: Target, label: 'Goal', emoji: '🎯', color: 'bg-blue-500' },
-  { icon: Lightbulb, label: 'Idea', emoji: '💡', color: 'bg-purple-500' },
-  { icon: Sparkles, label: 'Reminder', emoji: '✨', color: 'bg-pink-500' },
+  { icon: Zap, label: 'Currently Reading', emoji: '📖', color: 'bg-yellow-500' },
+  { icon: Target, label: 'Want to Read', emoji: '🎯', color: 'bg-blue-500' },
+  { icon: Lightbulb, label: 'Fiction', emoji: '📚', color: 'bg-purple-500' },
+  { icon: Sparkles, label: 'Non-Fiction', emoji: '✨', color: 'bg-pink-500' },
 ];
 
 export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
@@ -131,10 +131,10 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Create New Task
+                Add New Book
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Add a new task to stay organized
+                Add a book to your reading list
               </p>
             </div>
           </div>
@@ -154,7 +154,6 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
           </p>
           <div className="grid grid-cols-4 gap-3">
             {quickTemplates.map((template) => {
-              const Icon = template.icon;
               const isSelected = selectedTemplate === template.label;
               return (
                 <button
@@ -187,28 +186,28 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <Input
-              label="Task Title"
+              label="Book Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               error={errors.title}
-              placeholder="What needs to be done?"
+              placeholder="Enter book title (e.g., Peer-e-Kamil)"
               required
               autoFocus
               className="text-lg"
             />
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
-              Be specific and clear about what you want to accomplish
+              Enter the name of the book you want to add to your reading list
             </p>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-              Description <span className="text-slate-400">(optional)</span>
+              Notes/Description <span className="text-slate-400">(optional)</span>
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add more details, notes, or context..."
+              placeholder="Add notes about the book, author name, or reading progress..."
               rows={3}
               className="flex w-full rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:border-transparent transition resize-none"
             />
@@ -220,7 +219,7 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-                Start Date <span className="text-slate-400">(optional)</span>
+                Start Reading Date <span className="text-slate-400">(optional)</span>
               </label>
               <input
                 type="date"
@@ -232,7 +231,7 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
 
             <div>
               <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-                End Date <span className="text-slate-400">(optional)</span>
+                Target Completion Date <span className="text-slate-400">(optional)</span>
               </label>
               <input
                 type="date"
@@ -263,13 +262,13 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-3">
               <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-                Category <span className="text-slate-400">(optional)</span>
+                Genre/Category <span className="text-slate-400">(optional)</span>
               </label>
               <input
                 type="text"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="e.g., Work, Personal, Shopping"
+                placeholder="e.g., Fiction, Romance, Urdu Novel, English Classic"
                 className="flex w-full rounded-lg border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:border-transparent transition"
               />
             </div>
@@ -291,7 +290,7 @@ export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
               className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all"
             >
               <Sparkles className="w-4 h-4 mr-2" />
-              Create Task
+              Add Book
             </Button>
           </div>
         </form>
