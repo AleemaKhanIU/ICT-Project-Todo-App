@@ -52,8 +52,12 @@ def patched_build_middleware_stack(self):
 
 FastAPIClass.build_middleware_stack = patched_build_middleware_stack
 
-CORS_ORIGINS_STR = os.getenv("CORS_ORIGINS", "http://localhost:3000")
-CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",")]
+CORS_ORIGINS_STR = os.getenv("CORS_ORIGINS", "*")
+# Allow all origins if "*" is set, otherwise parse comma-separated list
+if CORS_ORIGINS_STR == "*":
+    CORS_ORIGINS = ["*"]
+else:
+    CORS_ORIGINS = [origin.strip() for origin in CORS_ORIGINS_STR.split(",") if origin.strip()]
 
 app = FastAPI(
     title="Todo Backend API",
@@ -65,7 +69,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=CORS_ORIGINS if CORS_ORIGINS != ["*"] else ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -84,7 +88,8 @@ async def health_check() -> dict[str, str]:
 
 
 # Register routers
-from src.api.routes import auth, tasks
+from src.api.routes import auth, tasks, books
 
 app.include_router(auth.router)
 app.include_router(tasks.router)
+app.include_router(books.router)  # Books alias for tasks (backward compatibility)

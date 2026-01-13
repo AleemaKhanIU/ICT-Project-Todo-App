@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { X, Sparkles, Zap, Target, Lightbulb } from 'lucide-react';
 import { useTasks } from '@/hooks/useTasks';
-import { useChatContext } from '@/contexts/ChatContext';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { SuccessPopup } from './SuccessPopup';
@@ -21,7 +20,6 @@ const quickTemplates = [
 
 export function CreateTaskModal({ onClose }: CreateTaskModalProps) {
   const { createTask } = useTasks();
-  const { setView } = useChatContext(); // To switch to chat view after adding book
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDateStart, setDueDateStart] = useState('');

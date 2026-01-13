@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Menu, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { TaskProvider } from '@/contexts/TaskContext';
 import { ChatProvider } from '@/contexts/ChatContext';
 import { useAuth } from '@/hooks/useAuth';

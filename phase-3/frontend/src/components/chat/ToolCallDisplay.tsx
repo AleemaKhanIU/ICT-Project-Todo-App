@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Code } from 'lucide-react';
 import type { ToolCall } from '@/types/chat';
-import { cn } from '@/lib/utils';
 
 export interface ToolCallDisplayProps {
   toolCalls: ToolCall[];

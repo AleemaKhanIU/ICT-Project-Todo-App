@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { BookOpen, List } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 import { useChatContext } from '@/contexts/ChatContext';
 import { cn } from '@/lib/utils';
 

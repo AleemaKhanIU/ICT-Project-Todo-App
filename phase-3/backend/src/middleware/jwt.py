@@ -23,7 +23,9 @@ load_dotenv()
 # JWT Configuration
 BETTER_AUTH_SECRET = os.getenv("BETTER_AUTH_SECRET")
 if not BETTER_AUTH_SECRET:
-    raise ValueError("BETTER_AUTH_SECRET environment variable is required")
+    # Don't fail at import time - will be checked when verify_jwt_token is called
+    # This allows the server to start and show a helpful error message
+    BETTER_AUTH_SECRET = None
 
 ALGORITHM = "HS256"
 
@@ -64,6 +66,16 @@ def verify_jwt_token(credentials: HTTPAuthorizationCredentials = Depends(securit
             tasks = db.exec(select(Task).where(Task.user_id == current_user["user_id"])).all()
             return tasks
     """
+    # Check if BETTER_AUTH_SECRET is configured
+    if not BETTER_AUTH_SECRET:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=(
+                "BETTER_AUTH_SECRET environment variable is not configured. "
+                "Please set it in your Hugging Face Space settings under 'Repository secrets'."
+            ),
+        )
+    
     token = credentials.credentials
 
     try:
