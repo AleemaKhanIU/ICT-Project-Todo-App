@@ -16,7 +16,9 @@ load_dotenv()
 
 # Import SQLModel base and all models
 from sqlmodel import SQLModel
-from src.models.task import Task  # noqa: F401
+from src.models.task import Book  # noqa: F401
+from src.models.conversation import Conversation  # noqa: F401
+from src.models.message import Message  # noqa: F401
 
 # this is the Alembic Config object
 config = context.config
