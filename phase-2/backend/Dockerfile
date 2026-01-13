@@ -27,9 +27,11 @@ COPY --chown=user . /app
 # Expose port 7860 (required for Hugging Face Spaces)
 EXPOSE 7860
 
-# Run migrations and start server
-# Note: Alembic migrations should be run before starting the server
-# If DATABASE_URL is not set, migrations will fail but server will still start
-# Using app.py as entry point for Hugging Face Spaces
-CMD ["sh", "-c", "alembic upgrade head || echo 'Migration failed - check DATABASE_URL secret' && uvicorn app:app --host 0.0.0.0 --port 7860"]
+# Copy startup script
+COPY --chown=user start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+# Run migrations and start server using startup script
+# The script will fail if migrations don't run successfully
+CMD ["/app/start.sh"]
 

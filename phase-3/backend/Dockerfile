@@ -1,7 +1,7 @@
 # Hugging Face Spaces Dockerfile for FastAPI Backend
 # Port 7860 is required for Hugging Face Spaces
 
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 # Create non-root user
 RUN useradd -m -u 1000 user
@@ -19,7 +19,8 @@ WORKDIR /app
 COPY --chown=user ./requirements.txt requirements.txt
 
 # Install dependencies
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY --chown=user . /app

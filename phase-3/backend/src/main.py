@@ -78,9 +78,16 @@ async def health_check() -> dict[str, str]:
     Health check endpoint.
 
     Returns:
-        dict: Status message indicating service is healthy
+        dict: Status message indicating service is healthy and configuration status
     """
-    return {"status": "healthy"}
+    import os
+    config_status = {
+        "status": "healthy",
+        "database_url": "configured" if os.getenv("DATABASE_URL") else "not configured",
+        "better_auth_secret": "configured" if os.getenv("BETTER_AUTH_SECRET") else "not configured",
+        "openai_api_key": "configured" if os.getenv("OPENAI_API_KEY") else "not configured",
+    }
+    return config_status
 
 
 # Register routers

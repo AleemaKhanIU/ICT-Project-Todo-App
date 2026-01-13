@@ -5,7 +5,7 @@
  * Used for client-side persistence and quick access to recent conversations.
  */
 
-import type { ChatMessage, Conversation } from '@/types/chat';
+import type { ChatMessage } from '@/types/chat';
 
 const STORAGE_KEY_PREFIX = 'chat_conversation_';
 const CONVERSATIONS_LIST_KEY = 'chat_conversations_list';
